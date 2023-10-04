@@ -1,0 +1,49 @@
+body {
+  font-family: 'Zen Dots', cursive;
+  background-color: var(--body_background);
+}
+.quoteCard {
+  width: 40vw;
+  border-style: solid;
+  border-color: var(--border_color);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-left: 30vw;
+  margin-top: 10vh;
+  min-height: 70vh;
+  background-color: white;
+  border-radius: 11vw;
+  font-size: calc(10px + 0.7vw);
+  position: relative;
+}
+
+.author {
+  margin-top: auto;
+}
+.quote {
+  margin-top: 5vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+.addQuoteBtn {
+  text-align: center;
+}
+.modifiers {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  justify-content: space-around;
+  margin-left: 30vw;
+  margin-right: 30vw;
+  margin-top: 2vh;
+}
+.bin {
+  cursor: pointer;
+}
+.order {
+  cursor: pointer;
+}

@@ -1,0 +1,23 @@
+* {
+  -ms-overflow-style: none;
+  transition: all 0.3s ease-in-out;
+  font-family: 'Zen Dots';
+}
+::-webkit-scrollbar {
+  display: none;
+}
+:root {
+  --body_background: #fff9e3;
+  --border_color: #ffe9ff;
+}
+[data-theme='dark'] {
+  --body_background: #59788e;
+  --border_color: yellowgreen;
+}
+[data-theme='light'] {
+  --body_background: #fff9e3;
+  --border_color: #ffe9ff;
+}
+body {
+  color: black;
+}
