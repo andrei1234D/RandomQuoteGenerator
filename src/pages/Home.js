@@ -43,7 +43,28 @@ function Home() {
   const handleRemoveSubmit = (indexToRemove) => {
     const updatedExtendedData = [...extendedData];
     updatedExtendedData.splice(indexToRemove, 1);
-    console.log(extendedData);
+    setData(updatedExtendedData);
+    setExtendedData(updatedExtendedData);
+  };
+  const handleMoveUp = (indexToMove) => {
+    if (indexToMove > 0) {
+      const updatedExtendedData = [...extendedData]; // Copy the state array
+      const movedItem = updatedExtendedData.splice(indexToMove, 1)[0]; // Remove the item
+      updatedExtendedData.splice(indexToMove - 1, 0, movedItem); // Insert it at the new position
+
+      // Update the state with the new array
+      setExtendedData(updatedExtendedData);
+    }
+  };
+  const handleMoveDown = (indexToMove) => {
+    if (indexToMove < extendedData.length) {
+      const updatedExtendedData = [...extendedData]; // Copy the state array
+      const movedItem = updatedExtendedData.splice(indexToMove, 1)[0]; // Remove the item
+      updatedExtendedData.splice(indexToMove + 1, 0, movedItem); // Insert it at the new position
+
+      // Update the state with the new array
+      setExtendedData(updatedExtendedData);
+    }
   };
   return (
     <div>
@@ -57,14 +78,21 @@ function Home() {
               </div>
             </div>
             <div className="modifiers">
-              <AiOutlineArrowUp size={30} className="order" />
+              <AiOutlineArrowUp
+                size={30}
+                className="order"
+                onClick={() => handleMoveUp(index)}
+              />
               <ImBin
                 size={30}
                 className="bin"
                 onClick={() => handleRemoveSubmit(index)}
               />
-              {console.log(extendedData)}
-              <AiOutlineArrowDown size={30} className="order" />
+              <AiOutlineArrowDown
+                size={30}
+                className="order"
+                onClick={() => handleMoveDown(index)}
+              />
             </div>
           </div>
         ))}

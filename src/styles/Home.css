@@ -5,11 +5,13 @@ body {
 
 .card {
   box-shadow: 0 10px 25px var(--box_shadow);
-  margin-left: 30vw;
-  margin-right: 30vw;
+  margin-left: 35vw;
+  margin-right: 35vw;
   margin-top: 10vh;
   min-height: 70vh;
   padding: 1vw;
+  border-radius: 3vw;
+  font-size: calc(10px + 0.5vw);
 }
 .card:hover {
   box-shadow: 5px 10px 25px 15px var(--box_shadow_hover);
@@ -24,7 +26,7 @@ body {
   text-align: center;
   background-color: white;
   border-radius: 11vw;
-  font-size: calc(10px + 0.7vw);
+  font-size: calc(7px+0.5vw);
 }
 
 .author {
