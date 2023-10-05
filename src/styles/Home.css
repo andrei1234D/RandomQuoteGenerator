@@ -2,22 +2,29 @@ body {
   font-family: 'Zen Dots', cursive;
   background-color: var(--body_background);
 }
+
+.card {
+  box-shadow: 0 10px 25px var(--box_shadow);
+  margin-left: 30vw;
+  margin-right: 30vw;
+  margin-top: 10vh;
+  min-height: 70vh;
+  padding: 1vw;
+}
+.card:hover {
+  box-shadow: 5px 10px 25px 15px var(--box_shadow_hover);
+}
 .quoteCard {
-  width: 40vw;
+  min-height: 70vh;
   border-style: solid;
   border-color: var(--border_color);
-  border-radius: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-left: 30vw;
-  margin-top: 10vh;
-  min-height: 70vh;
   background-color: white;
   border-radius: 11vw;
   font-size: calc(10px + 0.7vw);
-  position: relative;
 }
 
 .author {
@@ -33,13 +40,10 @@ body {
 }
 .modifiers {
   display: flex;
-  flex-direction: row;
   text-align: center;
-  justify-content: center;
-  justify-content: space-around;
-  margin-left: 30vw;
-  margin-right: 30vw;
+  justify-content: space-between;
   margin-top: 2vh;
+  position: static;
 }
 .bin {
   cursor: pointer;

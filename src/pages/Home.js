@@ -40,17 +40,17 @@ function Home() {
     e.preventDefault();
     fetchData();
   };
-  const handleRemoveSubmit = (idToRemove) => {
-    const updatedData = data.filter((item) => item.id !== idToRemove);
-    setData(updatedData);
-    console.log(data);
+  const handleRemoveSubmit = (indexToRemove) => {
+    const updatedExtendedData = [...extendedData];
+    updatedExtendedData.splice(indexToRemove, 1);
+    console.log(extendedData);
   };
   return (
     <div>
       <div>
         {extendedData?.map((item, index) => (
-          <div>
-            <div className="quoteCard" id={index}>
+          <div className="card" id={index}>
+            <div className="quoteCard">
               <div className="quote">"{item.quote}"</div>
               <div className="author">
                 <p>~ {item.author} ~</p>
@@ -61,8 +61,9 @@ function Home() {
               <ImBin
                 size={30}
                 className="bin"
-                onClick={() => handleRemoveSubmit(item.id)}
+                onClick={() => handleRemoveSubmit(index)}
               />
+              {console.log(extendedData)}
               <AiOutlineArrowDown size={30} className="order" />
             </div>
           </div>

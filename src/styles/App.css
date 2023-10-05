@@ -9,14 +9,20 @@
 :root {
   --body_background: #fff9e3;
   --border_color: #ffe9ff;
+  --box_shadow: rgb(1 1 1/ 25%);
+  --box_shadow_hover: rgb(111 194 250/ 75%);
 }
 [data-theme='dark'] {
   --body_background: #59788e;
   --border_color: yellowgreen;
+  --box_shadow: rgb(1 1 1/ 25%);
+  --box_shadow_hover: rgb(255 255 255/ 55%);
 }
 [data-theme='light'] {
   --body_background: #fff9e3;
   --border_color: #ffe9ff;
+  --box_shadow: rgb(1 1 1/ 25%);
+  --box_shadow_hover: rgb(111 194 250/ 75%);
 }
 body {
   color: black;
