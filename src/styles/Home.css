@@ -11,26 +11,25 @@ body {
   min-height: 70vh;
   padding: 1vw;
   border-radius: 3vw;
-  font-size: calc(10px + 0.5vw);
+  font-size: calc(12px + 0.5vw);
+  background-color: var(--card_background);
 }
 .card:hover {
   box-shadow: 5px 10px 25px 15px var(--box_shadow_hover);
 }
 .quoteCard {
+  background-color: var(--quote_card_background);
   min-height: 70vh;
-  border-style: solid;
-  border-color: var(--border_color);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: white;
   border-radius: 11vw;
-  font-size: calc(7px+0.5vw);
 }
 
 .author {
   margin-top: auto;
+  font-size: calc(10px + 0.7vw);
 }
 .quote {
   margin-top: 5vh;

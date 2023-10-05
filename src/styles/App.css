@@ -11,18 +11,23 @@
   --border_color: #ffe9ff;
   --box_shadow: rgb(1 1 1/ 25%);
   --box_shadow_hover: rgb(111 194 250/ 75%);
+  --card_background: #ccc7b5;
+  --quote_card_background: #a39f90;
 }
 [data-theme='dark'] {
   --body_background: #59788e;
   --border_color: yellowgreen;
   --box_shadow: rgb(1 1 1/ 25%);
   --box_shadow_hover: rgb(255 255 255/ 55%);
+  --card_background: azure;
 }
 [data-theme='light'] {
   --body_background: #fff9e3;
   --border_color: #ffe9ff;
   --box_shadow: rgb(1 1 1/ 25%);
   --box_shadow_hover: rgb(111 194 250/ 75%);
+  --card_background: #ccc7b5;
+  --quote_card_background: #a39f90;
 }
 body {
   color: black;

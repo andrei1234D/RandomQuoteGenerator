@@ -11,7 +11,7 @@ const options = {
     'X-Api-Key': apiKey,
   },
 };
-const apiURL = 'https://api.api-ninjas.com/v1/quotes?limit=5';
+let apiURL = 'https://api.api-ninjas.com/v1/quotes?limit=5';
 
 function Home() {
   const [data, setData] = useState([]);
