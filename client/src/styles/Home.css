@@ -8,7 +8,6 @@ body {
   margin-left: 35vw;
   margin-right: 35vw;
   margin-top: 10vh;
-  min-height: 70vh;
   padding: 1vw;
   border-radius: 3vw;
   font-size: calc(12px + 0.5vw);
@@ -19,7 +18,7 @@ body {
 }
 .quoteCard {
   background-color: var(--quote_card_background);
-  min-height: 70vh;
+  min-height: 55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,4 +58,8 @@ body {
 .edit,
 .twitter {
   cursor: pointer;
+}
+.text {
+  border-style: solid;
+  border-color: green;
 }

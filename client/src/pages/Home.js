@@ -1,5 +1,5 @@
 import '../styles/Home.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ImBin } from 'react-icons/im';
 import {
   AiOutlineArrowUp,
@@ -19,95 +19,60 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 const menuItemData = [
   { value: 'Random', label: 'Random' },
-  { value: 'age', label: 'Age' },
-  { value: 'alone', label: 'Alone' },
-  { value: 'amazing', label: 'Amazing' },
-  { value: 'anger', label: 'Anger' },
-  { value: 'architecture', label: 'Architecture' },
-  { value: 'art', label: 'Art' },
-  { value: 'attitude', label: 'Attitude' },
-  { value: 'beauty', label: 'Beauty' },
-  { value: 'best', label: 'Best' },
-  { value: 'birthday', label: 'Birthday' },
-  { value: 'business', label: 'Business' },
-  { value: 'car', label: 'Car' },
-  { value: 'change', label: 'Change' },
-  { value: 'communications', label: 'Communications' },
-  { value: 'computers', label: 'Computers' },
-  { value: 'cool', label: 'Cool' },
-  { value: 'courage', label: 'Courage' },
-  { value: 'dad', label: 'Dad' },
-  { value: 'dating', label: 'Dating' },
-  { value: 'death', label: 'Death' },
-  { value: 'design', label: 'Design' },
-  { value: 'dreams', label: 'Dreams' },
-  { value: 'education', label: 'Education' },
-  { value: 'environmental', label: 'Environmental' },
-  { value: 'equality', label: 'Equality' },
-  { value: 'experience', label: 'Experience' },
-  { value: 'failure', label: 'Failure' },
-  { value: 'faith', label: 'Faith' },
-  { value: 'family', label: 'Family' },
-  { value: 'famous', label: 'Famous' },
-  { value: 'fear', label: 'Fear' },
-  { value: 'fitness', label: 'Fitness' },
-  { value: 'food', label: 'Food' },
-  { value: 'forgiveness', label: 'Forgiveness' },
-  { value: 'freedom', label: 'Freedom' },
-  { value: 'friendship', label: 'Friendship' },
-  { value: 'funny', label: 'Funny' },
-  { value: 'future', label: 'Future' },
-  { value: 'god', label: 'God' },
-  { value: 'good', label: 'Good' },
-  { value: 'government', label: 'Government' },
-  { value: 'graduation', label: 'Graduation' },
-  { value: 'great', label: 'Great' },
-  { value: 'happiness', label: 'Happiness' },
-  { value: 'health', label: 'Health' },
-  { value: 'history', label: 'History' },
-  { value: 'home', label: 'Home' },
-  { value: 'hope', label: 'Hope' },
-  { value: 'humor', label: 'Humor' },
-  { value: 'imagination', label: 'Imagination' },
-  { value: 'inspirational', label: 'Inspirational' },
-  { value: 'intelligence', label: 'Intelligence' },
-  { value: 'jealousy', label: 'Jealousy' },
-  { value: 'knowledge', label: 'Knowledge' },
-  { value: 'leadership', label: 'Leadership' },
-  { value: 'learning', label: 'Learning' },
-  { value: 'legal', label: 'Legal' },
-  { value: 'life', label: 'Life' },
-  { value: 'love', label: 'Love' },
-  { value: 'marriage', label: 'Marriage' },
-  { value: 'medical', label: 'Medical' },
-  { value: 'men', label: 'Men' },
-  { value: 'mom', label: 'Mom' },
-  { value: 'money', label: 'Money' },
-  { value: 'morning', label: 'Morning' },
-  { value: 'movies', label: 'Movies' },
-  { value: 'success', label: 'Success' },
+  { value: 'Anxiety', label: 'Anxiety' },
+  { value: 'Change', label: 'Change' },
+  { value: 'Choice', label: 'Choice' },
+  { value: 'Confidence', label: 'Confidence' },
+  { value: 'Courage', label: 'Courage' },
+  { value: 'Death', label: 'Death' },
+  { value: 'Dreams', label: 'Dreams' },
+  { value: 'Excellence', label: 'Excellence' },
+  { value: 'Failure', label: 'Failure' },
+  { value: 'Fairness', label: 'Fairness' },
+  { value: 'Fear', label: 'Fear' },
+  { value: 'Forgiveness', label: 'Forgiveness' },
+  { value: 'Freedom', label: 'Freedom' },
+  { value: 'Future', label: 'Future' },
+  { value: 'Happiness', label: 'Happiness' },
+  { value: 'Inspiration', label: 'Inspiration' },
+  { value: 'Kindness', label: 'Kindness' },
+  { value: 'Leadership', label: 'Leadership' },
+  { value: 'Life', label: 'Life' },
+  { value: 'Living', label: 'Living' },
+  { value: 'Love', label: 'Love' },
+  { value: 'Pain', label: 'Pain' },
+  { value: 'Past', label: 'Past' },
+  { value: 'Success', label: 'Success' },
+  { value: 'Time', label: 'Time' },
+  { value: 'Today', label: 'Today' },
+  { value: 'Truth', label: 'Truth' },
+  { value: 'Work', label: 'Work' },
 ];
-const menuItemData2 = Array.from({ length: 10 }, (_, index) => ({
-  value: index + 1,
-  label: String(index + 1),
-}));
+
 function Home() {
   const [data, setData] = useState([]);
   const [extendedData, setExtendedData] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
   const [category, setCategory] = useState('Random');
   const [number, setNumber] = useState(5);
   const [open, setOpen] = useState(false);
-
+  const [editMsg, setEditMsg] = useState('');
+  const [editOpen, setEditOpen] = useState(false);
+  const pElementRef = useRef(null);
   useEffect(() => {
     fetchData();
   }, []);
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   let options;
   const fetchData = async () => {
     if (category === 'Random') {
@@ -156,8 +121,8 @@ function Home() {
   const handleRemoveSubmit = (indexToRemove) => {
     const updatedExtendedData = [...extendedData];
     updatedExtendedData.splice(indexToRemove, 1);
-    setData(updatedExtendedData);
     setExtendedData(updatedExtendedData);
+    setOpen(false);
   };
   const handleMoveUp = (indexToMove) => {
     if (indexToMove > 0) {
@@ -179,16 +144,25 @@ function Home() {
       setExtendedData(updatedExtendedData);
     }
   };
-  const handleEdit = (indexToEdit) => {
-    let txt = document.getElementById(indexToEdit);
-    console.log(txt);
-  };
   const handleClickOpenDeleteConfirmation = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleCloseEdit = (indexToEdit) => {
+    const updatedData = [...extendedData];
+    updatedData[indexToEdit].q = pElementRef.current.innerText;
+    if (indexToEdit === 0 && extendedData.length === 1) {
+      setExtendedData([...updatedData]);
+    } else updatedData.splice(indexToEdit, 1);
+    setExtendedData([...updatedData]);
+    setEditOpen(false);
+  };
+  const handleEdit = (indexToEdit) => {
+    setEditMsg(extendedData[indexToEdit].q);
+    setEditOpen(true);
   };
 
   return (
@@ -202,6 +176,26 @@ function Home() {
                 className="edit"
                 onClick={() => handleEdit(index)}
               />
+              <Dialog
+                open={editOpen}
+                onClose={handleCloseEdit}
+                aria-labelledby="responsive-dialog-title"
+              >
+                <DialogTitle
+                  id="responsive-dialog-title"
+                  style={{ textAlign: ' center' }}
+                >
+                  {'Edit your quote!'}
+                </DialogTitle>
+                <DialogContent>
+                  <p contenteditable="true" class="text" ref={pElementRef}>
+                    {editMsg}
+                  </p>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => handleCloseEdit(index)}>Close</Button>
+                </DialogActions>
+              </Dialog>
               <a class="twitter" target="blank" id={`twitter${index}`}>
                 <AiFillTwitterCircle size={30} className="twitter" />
               </a>
@@ -221,24 +215,29 @@ function Home() {
               <ImBin
                 size={30}
                 className="bin"
-                onClick={() => handleClickOpenDeleteConfirmation}
+                onClick={handleClickOpenDeleteConfirmation}
               />
               <Dialog
+                fullScreen={fullScreen}
                 open={open}
-                TransitionComponent={Transition}
-                keepMounted
                 onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
+                aria-labelledby="responsive-dialog-title"
               >
-                <DialogTitle>{'Are you sure you want to delete?'}</DialogTitle>
+                <DialogTitle id="responsive-dialog-title">
+                  {'Are you sure you want to delete this quote?'}
+                </DialogTitle>
                 <DialogContent>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    This action is not reversible,are you sure?
+                  <DialogContentText>
+                    This action is irreversible!
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose}>No</Button>
-                  <Button onClick={handleRemoveSubmit(index)}>Yes</Button>
+                  <Button autoFocus onClick={handleClose}>
+                    No
+                  </Button>
+                  <Button onClick={() => handleRemoveSubmit(index)} autoFocus>
+                    Yes
+                  </Button>
                 </DialogActions>
               </Dialog>
               <AiOutlineArrowDown
