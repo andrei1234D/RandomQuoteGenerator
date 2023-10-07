@@ -23,7 +23,80 @@ import Slide from '@mui/material/Slide';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
+const menuItemData = [
+  { value: 'Random', label: 'Random' },
+  { value: 'age', label: 'Age' },
+  { value: 'alone', label: 'Alone' },
+  { value: 'amazing', label: 'Amazing' },
+  { value: 'anger', label: 'Anger' },
+  { value: 'architecture', label: 'Architecture' },
+  { value: 'art', label: 'Art' },
+  { value: 'attitude', label: 'Attitude' },
+  { value: 'beauty', label: 'Beauty' },
+  { value: 'best', label: 'Best' },
+  { value: 'birthday', label: 'Birthday' },
+  { value: 'business', label: 'Business' },
+  { value: 'car', label: 'Car' },
+  { value: 'change', label: 'Change' },
+  { value: 'communications', label: 'Communications' },
+  { value: 'computers', label: 'Computers' },
+  { value: 'cool', label: 'Cool' },
+  { value: 'courage', label: 'Courage' },
+  { value: 'dad', label: 'Dad' },
+  { value: 'dating', label: 'Dating' },
+  { value: 'death', label: 'Death' },
+  { value: 'design', label: 'Design' },
+  { value: 'dreams', label: 'Dreams' },
+  { value: 'education', label: 'Education' },
+  { value: 'environmental', label: 'Environmental' },
+  { value: 'equality', label: 'Equality' },
+  { value: 'experience', label: 'Experience' },
+  { value: 'failure', label: 'Failure' },
+  { value: 'faith', label: 'Faith' },
+  { value: 'family', label: 'Family' },
+  { value: 'famous', label: 'Famous' },
+  { value: 'fear', label: 'Fear' },
+  { value: 'fitness', label: 'Fitness' },
+  { value: 'food', label: 'Food' },
+  { value: 'forgiveness', label: 'Forgiveness' },
+  { value: 'freedom', label: 'Freedom' },
+  { value: 'friendship', label: 'Friendship' },
+  { value: 'funny', label: 'Funny' },
+  { value: 'future', label: 'Future' },
+  { value: 'god', label: 'God' },
+  { value: 'good', label: 'Good' },
+  { value: 'government', label: 'Government' },
+  { value: 'graduation', label: 'Graduation' },
+  { value: 'great', label: 'Great' },
+  { value: 'happiness', label: 'Happiness' },
+  { value: 'health', label: 'Health' },
+  { value: 'history', label: 'History' },
+  { value: 'home', label: 'Home' },
+  { value: 'hope', label: 'Hope' },
+  { value: 'humor', label: 'Humor' },
+  { value: 'imagination', label: 'Imagination' },
+  { value: 'inspirational', label: 'Inspirational' },
+  { value: 'intelligence', label: 'Intelligence' },
+  { value: 'jealousy', label: 'Jealousy' },
+  { value: 'knowledge', label: 'Knowledge' },
+  { value: 'leadership', label: 'Leadership' },
+  { value: 'learning', label: 'Learning' },
+  { value: 'legal', label: 'Legal' },
+  { value: 'life', label: 'Life' },
+  { value: 'love', label: 'Love' },
+  { value: 'marriage', label: 'Marriage' },
+  { value: 'medical', label: 'Medical' },
+  { value: 'men', label: 'Men' },
+  { value: 'mom', label: 'Mom' },
+  { value: 'money', label: 'Money' },
+  { value: 'morning', label: 'Morning' },
+  { value: 'movies', label: 'Movies' },
+  { value: 'success', label: 'Success' },
+];
+const menuItemData2 = Array.from({ length: 10 }, (_, index) => ({
+  value: index + 1,
+  label: String(index + 1),
+}));
 function Home() {
   const [data, setData] = useState([]);
   const [extendedData, setExtendedData] = useState([]);
@@ -210,74 +283,11 @@ function Home() {
               background: 'var(--quote_card_background)',
             }}
           >
-            <MenuItem value="Random">Random</MenuItem>
-            <MenuItem value="age">Age</MenuItem>
-            <MenuItem value="alone">Alone</MenuItem>
-            <MenuItem value="amazing">Amazing</MenuItem>
-            <MenuItem value="anger">Anger</MenuItem>
-            <MenuItem value="architecture">Architecture</MenuItem>
-            <MenuItem value="art">Art</MenuItem>
-            <MenuItem value="attitude">Attitude</MenuItem>
-            <MenuItem value="beauty">Beauty</MenuItem>
-            <MenuItem value="best">Best</MenuItem>
-            <MenuItem value="birthday">Birthday</MenuItem>
-            <MenuItem value="business">Business</MenuItem>
-            <MenuItem value="car">Car</MenuItem>
-            <MenuItem value="change">Change</MenuItem>
-            <MenuItem value="communications">Communications</MenuItem>
-            <MenuItem value="computers">Computers</MenuItem>
-            <MenuItem value="cool">Cool</MenuItem>
-            <MenuItem value="courage">Courage</MenuItem>
-            <MenuItem value="dad">Dad</MenuItem>
-            <MenuItem value="dating">Dating</MenuItem>
-            <MenuItem value="death">Death</MenuItem>
-            <MenuItem value="design">Design</MenuItem>
-            <MenuItem value="dreams">Dreams</MenuItem>
-            <MenuItem value="education">Education</MenuItem>
-            <MenuItem value="environmental">Environmental</MenuItem>
-            <MenuItem value="equality">Equality</MenuItem>
-            <MenuItem value="experience">Experience</MenuItem>
-            <MenuItem value="failure">Failure</MenuItem>
-            <MenuItem value="faith">Faith</MenuItem>
-            <MenuItem value="family">Family</MenuItem>
-            <MenuItem value="famous">Famous</MenuItem>
-            <MenuItem value="fear">Fear</MenuItem>
-            <MenuItem value="fitness">Fitness</MenuItem>
-            <MenuItem value="food">Food</MenuItem>
-            <MenuItem value="forgiveness">Forgiveness</MenuItem>
-            <MenuItem value="freedom">Freedom</MenuItem>
-            <MenuItem value="friendship">Friendship</MenuItem>
-            <MenuItem value="funny">Funny</MenuItem>
-            <MenuItem value="future">Future</MenuItem>
-            <MenuItem value="god">God</MenuItem>
-            <MenuItem value="good">Good</MenuItem>
-            <MenuItem value="government">Government</MenuItem>
-            <MenuItem value="graduation">Graduation</MenuItem>
-            <MenuItem value="great">Great</MenuItem>
-            <MenuItem value="happiness">Happiness</MenuItem>
-            <MenuItem value="health">Health</MenuItem>
-            <MenuItem value="history">History</MenuItem>
-            <MenuItem value="home">Home</MenuItem>
-            <MenuItem value="hope">Hope</MenuItem>
-            <MenuItem value="humor">Humor</MenuItem>
-            <MenuItem value="imagination">Imagination</MenuItem>
-            <MenuItem value="inspirational">Inspirational</MenuItem>
-            <MenuItem value="intelligence">Intelligence</MenuItem>
-            <MenuItem value="jealousy">Jealousy</MenuItem>
-            <MenuItem value="knowledge">Knowledge</MenuItem>
-            <MenuItem value="leadership">Leadership</MenuItem>
-            <MenuItem value="learning">Learning</MenuItem>
-            <MenuItem value="legal">Legal</MenuItem>
-            <MenuItem value="life">Life</MenuItem>
-            <MenuItem value="love">Love</MenuItem>
-            <MenuItem value="marriage">Marriage</MenuItem>
-            <MenuItem value="medical">Medical</MenuItem>
-            <MenuItem value="men">Men</MenuItem>
-            <MenuItem value="mom">Mom</MenuItem>
-            <MenuItem value="money">Money</MenuItem>
-            <MenuItem value="morning">Morning</MenuItem>
-            <MenuItem value="movies">Movies</MenuItem>
-            <MenuItem value="success">Success</MenuItem>
+            {menuItemData.map((item) => (
+              <MenuItem key={item.value} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <FormControl
@@ -301,16 +311,11 @@ function Home() {
               background: 'var(--quote_card_background)',
             }}
           >
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={4}>4</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={6}>6</MenuItem>
-            <MenuItem value={7}>7</MenuItem>
-            <MenuItem value={8}>8</MenuItem>
-            <MenuItem value={9}>9</MenuItem>
-            <MenuItem value={10}>10</MenuItem>
+            {Array.from({ length: 10 }, (_, index) => (
+              <MenuItem key={index + 1} value={index + 1}>
+                {index + 1}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
 
