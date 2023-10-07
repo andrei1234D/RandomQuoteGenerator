@@ -18,13 +18,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
+
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 const menuItemData = [
   { value: 'Random', label: 'Random' },
   { value: 'Anxiety', label: 'Anxiety' },
@@ -65,6 +64,8 @@ function Home() {
   const [open, setOpen] = useState(false);
   const [editMsg, setEditMsg] = useState('');
   const [editOpen, setEditOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const pElementRef = useRef(null);
   useEffect(() => {
     fetchData();
@@ -75,6 +76,7 @@ function Home() {
 
   let options;
   const fetchData = async () => {
+    setLoading(true);
     if (category === 'Random') {
       options = {
         method: 'GET',
@@ -105,6 +107,7 @@ function Home() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+    setLoading(false);
   };
 
   const handleChange = (event) => {
@@ -154,7 +157,7 @@ function Home() {
   const handleCloseEdit = (indexToEdit) => {
     const updatedData = [...extendedData];
     updatedData[indexToEdit].q = pElementRef.current.innerText;
-    if (indexToEdit === 0 && extendedData.length === 1) {
+    if (extendedData.length === 1) {
       setExtendedData([...updatedData]);
     } else updatedData.splice(indexToEdit, 1);
     setExtendedData([...updatedData]);
@@ -168,6 +171,12 @@ function Home() {
   return (
     <div>
       <div>
+        {loading && (
+          <Stack sx={{ width: '100%', color: 'grey.500', position: 'fixed' }}>
+            <LinearProgress color="success" />
+          </Stack>
+        )}
+
         {extendedData?.map((item, index) => (
           <div className="card" id={index} key={index}>
             <div className="modifiersTop">
@@ -196,7 +205,15 @@ function Home() {
                   <Button onClick={() => handleCloseEdit(index)}>Close</Button>
                 </DialogActions>
               </Dialog>
-              <a class="twitter" target="blank" id={`twitter${index}`}>
+
+              <a
+                className="twitter-share-button"
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  extendedData[index].q
+                )}&url=${encodeURIComponent(window.location.href)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <AiFillTwitterCircle size={30} className="twitter" />
               </a>
             </div>

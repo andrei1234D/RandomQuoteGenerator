@@ -46,7 +46,6 @@ app.post('/api/quotes', async (req, res) => {
     }
 
     const jsonData = await response.json();
-    console.log(jsonData);
     res.json(jsonData);
   } catch (error) {
     console.error('Error fetching data:', error);
