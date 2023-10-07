@@ -14,17 +14,10 @@ const apiKey = 'y5MJThH96B02OHR2ynL7PA==uSqAaXtmVNQSKsp9';
 
 // Define an API route to fetch data from the external API
 app.get('/api/quotes', async (req, res) => {
-  console.log(req.query);
-  console.log('successfully fetched GET');
   try {
     const number = req.query.limit || 5; // Default to 5 if not provided in the query
-    const apiURL = `https://api.api-ninjas.com/v1/quotes?limit=${number}`;
-    const response = await fetch(apiURL, {
-      method: 'GET',
-      headers: {
-        'X-Api-Key': apiKey,
-      },
-    });
+    const apiURL = `https://zenquotes.io/api/random`;
+    const response = await fetch(apiURL);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data: ${response.statusText}`);
@@ -38,6 +31,7 @@ app.get('/api/quotes', async (req, res) => {
   }
 });
 app.post('/api/quotes', async (req, res) => {
+  console.log(`req query for POST is:${req.query}`);
   console.log('successfully fetched POST');
   try {
     const number = req.query.limit || 5; // Default to 5 if not provided in the query

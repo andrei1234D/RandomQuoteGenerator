@@ -20,8 +20,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
-const apiKey = 'y5MJThH96B02OHR2ynL7PA==uSqAaXtmVNQSKsp9';
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -34,56 +32,39 @@ function Home() {
   const [number, setNumber] = useState(5);
   const [open, setOpen] = useState(false);
 
-  const handleChange = (event) => {
-    setCategory(event.target.value);
-  };
-
-  const handleChangeNr = (event) => {
-    setNumber(event.target.value);
-  };
-
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    let options;
-    if (category === 'Random') {
-      options = {
-        method: 'GET',
-        headers: {
-          'X-Api-Key': apiKey,
-        },
-      };
-    } else {
-      options = {
-        method: 'POST',
-        headers: {
-          'X-Api-Key': apiKey,
-        },
-      };
-    }
-
     try {
       const apiUrl =
         category === 'Random'
           ? `http://localhost:8080/api/quotes?limit=${number}`
           : `http://localhost:8080/api/quotes?category=${category}&limit=${number}`;
 
-      const response = await fetch(apiUrl, options);
+      const response = await fetch(apiUrl);
 
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.statusText}`);
       }
       const jsonData = await response.json();
-
       // Combine existing data with the new data
+
       const updatedData = [...data, ...jsonData];
       setData(updatedData);
       setExtendedData(updatedData);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+  };
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const handleChangeNr = (event) => {
+    setNumber(event.target.value);
   };
   const handleClick = (e) => {
     e.preventDefault();
@@ -126,6 +107,7 @@ function Home() {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <div>
       <div>
@@ -137,16 +119,14 @@ function Home() {
                 className="edit"
                 onClick={() => handleEdit(index)}
               />
-              <AiFillTwitterCircle
-                size={30}
-                className="twitter"
-                onClick={() => handleRemoveSubmit(index)}
-              />
+              <a class="twitter" target="blank" id={`twitter${index}`}>
+                <AiFillTwitterCircle size={30} className="twitter" />
+              </a>
             </div>
             <div className="quoteCard">
-              <div className="quote">"{item.quote}"</div>
+              <div className="quote">"{item.q}"</div>
               <div className="author">
-                <p>~ {item.author} ~</p>
+                <p>~ {item.a} ~</p>
               </div>
             </div>
             <div className="modifiers">
