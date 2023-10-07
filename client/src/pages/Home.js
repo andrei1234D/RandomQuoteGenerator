@@ -35,15 +35,25 @@ function Home() {
   useEffect(() => {
     fetchData();
   }, []);
-
+  let options;
   const fetchData = async () => {
+    if (category === 'Random') {
+      options = {
+        method: 'GET',
+      };
+    } else {
+      options = {
+        method: 'POST',
+      };
+    }
+
     try {
       const apiUrl =
         category === 'Random'
           ? `http://localhost:8080/api/quotes?limit=${number}`
           : `http://localhost:8080/api/quotes?category=${category}&limit=${number}`;
 
-      const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl, options);
 
       if (!response.ok) {
         throw new Error(`Failed to fetch data: ${response.statusText}`);

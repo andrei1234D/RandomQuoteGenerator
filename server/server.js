@@ -36,7 +36,7 @@ app.post('/api/quotes', async (req, res) => {
   try {
     const number = req.query.limit || 5; // Default to 5 if not provided in the query
     const category = req.query.category || ''; // Default to empty string if not provided in the query
-    const apiURL = `https://api.api-ninjas.com/v1/quotes?category=${category}&limit=${number}`;
+    const apiURL = `https://zenquotes.io/api/random`;
     const response = await fetch(apiURL, {
       method: 'POST',
       headers: {
