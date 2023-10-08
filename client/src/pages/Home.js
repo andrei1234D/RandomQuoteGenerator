@@ -1,12 +1,17 @@
 import '../styles/Home.css';
 import React, { useState, useEffect, useRef } from 'react';
+
+//ICON IMPORTS
 import { ImBin } from 'react-icons/im';
 import {
-  AiOutlineArrowUp,
-  AiOutlineArrowDown,
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
   AiFillTwitterCircle,
   AiOutlineEdit,
 } from 'react-icons/ai';
+
+//MUI IMPORTS
+
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,7 +25,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
-
+import Tooltip from '@mui/material/Tooltip';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
@@ -57,16 +62,25 @@ const menuItemData = [
 ];
 
 function Home() {
+  //This data is used for the eventuality that there is a need for a list of all quotes regardless of the modifications sustained by
+  //The array that is used for displaying cards
   const [data, setData] = useState([]);
+
+  //The array used for displaying
   const [extendedData, setExtendedData] = useState([]);
+
+  //If i had a premium key these would be used for sending the variables to the be
   const [category, setCategory] = useState('Random');
-  const [number, setNumber] = useState(5);
+  const [number, setNumber] = useState(1);
+
   const [open, setOpen] = useState(false);
   const [editMsg, setEditMsg] = useState('');
   const [editOpen, setEditOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const pElementRef = useRef(null);
+
+  //on first load fetch data
   useEffect(() => {
     fetchData();
   }, []);
@@ -74,6 +88,7 @@ function Home() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
+  //The post method is the same as get because the api only allows for a limited amount of requests
   let options;
   const fetchData = async () => {
     setLoading(true);
@@ -88,6 +103,7 @@ function Home() {
     }
 
     try {
+      //if i had a premium api key this would be how i sent variables to be then to the api
       const apiUrl =
         category === 'Random'
           ? `http://localhost:8080/api/quotes?limit=${number}`
@@ -101,7 +117,7 @@ function Home() {
       const jsonData = await response.json();
       // Combine existing data with the new data
 
-      const updatedData = [...data, ...jsonData];
+      const updatedData = [...extendedData, ...jsonData];
       setData(updatedData);
       setExtendedData(updatedData);
     } catch (error) {
@@ -156,10 +172,9 @@ function Home() {
   };
   const handleCloseEdit = (indexToEdit) => {
     const updatedData = [...extendedData];
+
     updatedData[indexToEdit].q = pElementRef.current.innerText;
-    if (extendedData.length === 1) {
-      setExtendedData([...updatedData]);
-    } else updatedData.splice(indexToEdit, 1);
+
     setExtendedData([...updatedData]);
     setEditOpen(false);
   };
@@ -170,102 +185,6 @@ function Home() {
 
   return (
     <div>
-      <div>
-        {loading && (
-          <Stack sx={{ width: '100%', color: 'grey.500', position: 'fixed' }}>
-            <LinearProgress color="success" />
-          </Stack>
-        )}
-
-        {extendedData?.map((item, index) => (
-          <div className="card" id={index} key={index}>
-            <div className="modifiersTop">
-              <AiOutlineEdit
-                size={30}
-                className="edit"
-                onClick={() => handleEdit(index)}
-              />
-              <Dialog
-                open={editOpen}
-                onClose={handleCloseEdit}
-                aria-labelledby="responsive-dialog-title"
-              >
-                <DialogTitle
-                  id="responsive-dialog-title"
-                  style={{ textAlign: ' center' }}
-                >
-                  {'Edit your quote!'}
-                </DialogTitle>
-                <DialogContent>
-                  <p contenteditable="true" class="text" ref={pElementRef}>
-                    {editMsg}
-                  </p>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={() => handleCloseEdit(index)}>Close</Button>
-                </DialogActions>
-              </Dialog>
-
-              <a
-                className="twitter-share-button"
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  extendedData[index].q
-                )}&url=${encodeURIComponent(window.location.href)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <AiFillTwitterCircle size={30} className="twitter" />
-              </a>
-            </div>
-            <div className="quoteCard">
-              <div className="quote">"{item.q}"</div>
-              <div className="author">
-                <p>~ {item.a} ~</p>
-              </div>
-            </div>
-            <div className="modifiers">
-              <AiOutlineArrowUp
-                size={30}
-                className="order"
-                onClick={() => handleMoveUp(index)}
-              />
-              <ImBin
-                size={30}
-                className="bin"
-                onClick={handleClickOpenDeleteConfirmation}
-              />
-              <Dialog
-                fullScreen={fullScreen}
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
-              >
-                <DialogTitle id="responsive-dialog-title">
-                  {'Are you sure you want to delete this quote?'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    This action is irreversible!
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button autoFocus onClick={handleClose}>
-                    No
-                  </Button>
-                  <Button onClick={() => handleRemoveSubmit(index)} autoFocus>
-                    Yes
-                  </Button>
-                </DialogActions>
-              </Dialog>
-              <AiOutlineArrowDown
-                size={30}
-                className="order"
-                onClick={() => handleMoveDown(index)}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
       <Box
         style={{
           width: '33vw',
@@ -294,6 +213,7 @@ function Home() {
             placeholder="Random"
             onChange={handleChange}
             style={{
+              height: '5vh',
               width: '17vw',
               fontSize: '1.2vw',
               background: 'var(--quote_card_background)',
@@ -322,6 +242,7 @@ function Home() {
             label="Number Select"
             onChange={handleChangeNr}
             style={{
+              height: '5vh',
               width: '17vw',
               fontSize: '1.2vw',
               background: 'var(--quote_card_background)',
@@ -344,13 +265,153 @@ function Home() {
               width: '17vw',
               fontSize: '1.1vw',
               background: 'var(--quote_card_background)',
-              color: '#4c4c4c',
+              color: 'black',
             }}
           >
             Add more Quotes
           </Button>
         </div>
       </Box>
+      <div className="quotesContainer">
+        {loading && (
+          <Stack sx={{ width: '100%', color: 'grey.500', position: 'fixed' }}>
+            <LinearProgress color="success" />
+          </Stack>
+        )}
+
+        {extendedData?.map((item, index) => (
+          <div className="card" id={index} key={index}>
+            <div className="modifiersTop">
+              <Tooltip
+                title="Edit"
+                arrow
+                placement="top-start"
+                enterDelay={200}
+                leaveDelay={200}
+              >
+                <div>
+                  <AiOutlineEdit
+                    className="edit"
+                    onClick={() => handleEdit(index)}
+                  />
+                </div>
+              </Tooltip>
+              <Dialog
+                open={editOpen}
+                Style={{ background: '#2E3B55' }}
+                onClose={() => setEditOpen(false)}
+                aria-labelledby="responsive-dialog-title"
+              >
+                <DialogTitle
+                  id="responsive-dialog-title"
+                  style={{ textAlign: ' center' }}
+                >
+                  {'Edit your quote!'}
+                </DialogTitle>
+                <DialogContent style={{ Width: '30vh', minHeight: '25vh' }}>
+                  <p contenteditable="true" class="text" ref={pElementRef}>
+                    {editMsg}
+                  </p>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => handleCloseEdit(index)}>Save</Button>
+                </DialogActions>
+              </Dialog>
+              <Tooltip
+                title="Share to twitter"
+                arrow
+                placement="top-end"
+                enterDelay={200}
+                leaveDelay={200}
+              >
+                <a
+                  className="twitter-share-button"
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                    extendedData[index].q
+                  )}&url=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <AiFillTwitterCircle className="twitter" />
+                </a>
+              </Tooltip>
+            </div>
+            <div className="quoteCard">
+              <div className="quote">"{item.q}"</div>
+              <div className="author">
+                <p>~ {item.a} ~</p>
+              </div>
+            </div>
+            <div className="modifiers">
+              <Tooltip
+                title="Move this quote to the left"
+                arrow
+                placement="bottom-start"
+                enterDelay={200}
+                leaveDelay={200}
+              >
+                <div>
+                  <AiOutlineArrowLeft
+                    className="order"
+                    onClick={() => handleMoveUp(index)}
+                  />
+                </div>
+              </Tooltip>
+              <Tooltip
+                title="Remove this Quote"
+                arrow
+                placement="bottom"
+                enterDelay={200}
+                leaveDelay={200}
+              >
+                <div>
+                  <ImBin
+                    className="bin"
+                    onClick={handleClickOpenDeleteConfirmation}
+                  />
+                </div>
+              </Tooltip>
+              <Dialog
+                fullScreen={fullScreen}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+              >
+                <DialogTitle id="responsive-dialog-title">
+                  {'Are you sure you want to delete this quote?'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    This action is irreversible!
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button autoFocus onClick={handleClose}>
+                    No
+                  </Button>
+                  <Button onClick={() => handleRemoveSubmit(index)} autoFocus>
+                    Yes
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              <Tooltip
+                title="Move this quote to the right"
+                arrow
+                placement="bottom-end"
+                enterDelay={200}
+                leaveDelay={200}
+              >
+                <div>
+                  <AiOutlineArrowRight
+                    className="order"
+                    onClick={() => handleMoveDown(index)}
+                  />
+                </div>
+              </Tooltip>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

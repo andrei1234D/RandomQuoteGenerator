@@ -15,7 +15,7 @@ const apiKey = 'y5MJThH96B02OHR2ynL7PA==uSqAaXtmVNQSKsp9';
 // Define an API route to fetch data from the external API
 app.get('/api/quotes', async (req, res) => {
   try {
-    const number = req.query.limit || 5; // Default to 5 if not provided in the query
+    const number = req.query.limit || 5; // If i had premium api key this would be needed
     const apiURL = `https://zenquotes.io/api/random`;
     const response = await fetch(apiURL);
 
@@ -34,8 +34,10 @@ app.post('/api/quotes', async (req, res) => {
   console.log(`req query for POST is:${req.query}`);
   console.log('successfully fetched POST');
   try {
-    const number = req.query.limit || 5; // Default to 5 if not provided in the query
-    const category = req.query.category || ''; // Default to empty string if not provided in the query
+    // If i had premium api key this would be needed
+    const number = req.query.limit || 5;
+    const category = req.query.category || '';
+
     const apiURL = `https://zenquotes.io/api/random`;
     const response = await fetch(apiURL, {
       method: 'POST',

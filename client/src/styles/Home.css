@@ -2,12 +2,19 @@ body {
   font-family: 'Zen Dots', cursive;
   background-color: var(--body_background);
 }
+.quotesContainer {
+  padding: 3vh;
+  display: grid;
 
+  grid-template-columns: repeat(3, 1fr);
+
+  grid-auto-rows: auto;
+
+  grid-gap: 1rem;
+}
 .card {
   box-shadow: 0 10px 25px var(--box_shadow);
-  margin-left: 35vw;
-  margin-right: 35vw;
-  margin-top: 10vh;
+  margin: 2vh;
   padding: 1vw;
   border-radius: 3vw;
   font-size: calc(12px + 0.5vw);
@@ -18,7 +25,8 @@ body {
 }
 .quoteCard {
   background-color: var(--quote_card_background);
-  min-height: 55vh;
+  min-height: 40vh;
+  min-width: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,8 +66,22 @@ body {
 .edit,
 .twitter {
   cursor: pointer;
+  width: 3.5vw;
+  height: 3.5vh;
 }
 .text {
   border-style: solid;
   border-color: green;
+  width: 25vw;
+}
+
+@media only screen and (max-width: 900px) {
+  .quotesContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (max-width: 500px) {
+  .quotesContainer {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
