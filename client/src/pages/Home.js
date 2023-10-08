@@ -80,6 +80,8 @@ function Home() {
 
   const pElementRef = useRef(null);
 
+  const [index, setIndex] = useState(0);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   //on first load fetch data
   useEffect(() => {
     fetchData();
@@ -136,8 +138,19 @@ function Home() {
   const handleClick = (e) => {
     e.preventDefault();
     fetchData();
+    // Disable the button to prevent multiple clicks during the delay
+    setIsButtonDisabled(true);
+
+    // Add a 1-second (1000 milliseconds) delay
+    setTimeout(() => {
+      // Enable the button after the delay
+      setIsButtonDisabled(false);
+    }, 1000); // 1000 milliseconds = 1 second
+
+    // Your other click event logic here
   };
   const handleRemoveSubmit = (indexToRemove) => {
+    console.log(index);
     const updatedExtendedData = [...extendedData];
     updatedExtendedData.splice(indexToRemove, 1);
     setExtendedData(updatedExtendedData);
@@ -163,7 +176,9 @@ function Home() {
       setExtendedData(updatedExtendedData);
     }
   };
-  const handleClickOpenDeleteConfirmation = () => {
+  const handleClickOpenDeleteConfirmation = (indexToDelete) => {
+    console.log(indexToDelete);
+    setIndex(indexToDelete);
     setOpen(true);
   };
 
@@ -172,7 +187,6 @@ function Home() {
   };
   const handleCloseEdit = (indexToEdit) => {
     const updatedData = [...extendedData];
-
     updatedData[indexToEdit].q = pElementRef.current.innerText;
 
     setExtendedData([...updatedData]);
@@ -180,6 +194,7 @@ function Home() {
   };
   const handleEdit = (indexToEdit) => {
     setEditMsg(extendedData[indexToEdit].q);
+    setIndex(indexToEdit);
     setEditOpen(true);
   };
 
@@ -201,6 +216,8 @@ function Home() {
             id="demo-simple-select-label"
             style={{
               fontSize: '1.2vw',
+              fontFamily: "'Young Serif', 'serif'",
+              color: 'var(--text_color)',
             }}
           >
             Categories
@@ -213,6 +230,7 @@ function Home() {
             placeholder="Random"
             onChange={handleChange}
             style={{
+              fontFamily: "'Young Serif', 'serif'",
               height: '5vh',
               width: '17vw',
               fontSize: '1.2vw',
@@ -231,7 +249,11 @@ function Home() {
         >
           <InputLabel
             id="demo-simple-select-label"
-            style={{ fontSize: '1.2vw' }}
+            style={{
+              fontSize: '1.2vw',
+              fontFamily: "'Young Serif', 'serif'",
+              color: 'var(--text_color)',
+            }}
           >
             Number of Quotes
           </InputLabel>
@@ -242,6 +264,7 @@ function Home() {
             label="Number Select"
             onChange={handleChangeNr}
             style={{
+              fontFamily: "'Young Serif', 'serif'",
               height: '5vh',
               width: '17vw',
               fontSize: '1.2vw',
@@ -261,12 +284,14 @@ function Home() {
             variant="contained"
             onClick={handleClick}
             style={{
+              fontFamily: "'Young Serif', 'serif'",
               marginTop: '2vh',
               width: '17vw',
-              fontSize: '1.1vw',
+              fontSize: '0.7vw',
               background: 'var(--quote_card_background)',
-              color: 'black',
+              color: 'var(--text_color)',
             }}
+            disabled={isButtonDisabled}
           >
             Add more Quotes
           </Button>
@@ -296,27 +321,6 @@ function Home() {
                   />
                 </div>
               </Tooltip>
-              <Dialog
-                open={editOpen}
-                Style={{ background: '#2E3B55' }}
-                onClose={() => setEditOpen(false)}
-                aria-labelledby="responsive-dialog-title"
-              >
-                <DialogTitle
-                  id="responsive-dialog-title"
-                  style={{ textAlign: ' center' }}
-                >
-                  {'Edit your quote!'}
-                </DialogTitle>
-                <DialogContent style={{ Width: '30vh', minHeight: '25vh' }}>
-                  <p contenteditable="true" class="text" ref={pElementRef}>
-                    {editMsg}
-                  </p>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={() => handleCloseEdit(index)}>Save</Button>
-                </DialogActions>
-              </Dialog>
               <Tooltip
                 title="Share to twitter"
                 arrow
@@ -339,7 +343,9 @@ function Home() {
             <div className="quoteCard">
               <div className="quote">"{item.q}"</div>
               <div className="author">
-                <p>~ {item.a} ~</p>
+                <p style={{ fontFamily: "'Cedarville Cursive', 'cursive'" }}>
+                  ~ {item.a} ~
+                </p>
               </div>
             </div>
             <div className="modifiers">
@@ -367,33 +373,10 @@ function Home() {
                 <div>
                   <ImBin
                     className="bin"
-                    onClick={handleClickOpenDeleteConfirmation}
+                    onClick={() => handleClickOpenDeleteConfirmation(index)}
                   />
                 </div>
               </Tooltip>
-              <Dialog
-                fullScreen={fullScreen}
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
-              >
-                <DialogTitle id="responsive-dialog-title">
-                  {'Are you sure you want to delete this quote?'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    This action is irreversible!
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button autoFocus onClick={handleClose}>
-                    No
-                  </Button>
-                  <Button onClick={() => handleRemoveSubmit(index)} autoFocus>
-                    Yes
-                  </Button>
-                </DialogActions>
-              </Dialog>
               <Tooltip
                 title="Move this quote to the right"
                 arrow
@@ -412,6 +395,48 @@ function Home() {
           </div>
         ))}
       </div>
+      <Dialog
+        open={editOpen}
+        Style={{ background: '#2E3B55' }}
+        onClose={() => setEditOpen(false)}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle
+          id="responsive-dialog-title"
+          style={{ textAlign: ' center' }}
+        >
+          {'Edit your quote!'}
+        </DialogTitle>
+        <DialogContent style={{ Width: '30vh', minHeight: '25vh' }}>
+          <p contenteditable="true" class="text" ref={pElementRef}>
+            {editMsg}
+          </p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleCloseEdit(index)}>Save</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {'Are you sure you want to delete this quote?'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>This action is irreversible!</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            No
+          </Button>
+          <Button onClick={() => handleRemoveSubmit(index)} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

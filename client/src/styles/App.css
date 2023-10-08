@@ -1,33 +1,37 @@
 * {
   -ms-overflow-style: none;
   transition: all 0.3s ease-in-out;
-  font-family: 'Zen Dots';
+  font-family: 'Young Serif', serif;
 }
 ::-webkit-scrollbar {
   display: none;
 }
 :root {
   --body_background: #fff9e3;
-  --border_color: #ffe9ff;
   --box_shadow: rgb(1 1 1/ 25%);
   --box_shadow_hover: rgb(111 194 250/ 75%);
   --card_background: #ccc7b5;
   --quote_card_background: #a39f90;
+  --icons_color: black;
+  --text_color: black;
 }
 [data-theme='dark'] {
-  --body_background: #59788e;
-  --border_color: yellowgreen;
+  --body_background: #141616;
   --box_shadow: rgb(1 1 1/ 25%);
   --box_shadow_hover: rgb(144 160 176/ 40%);
-  --card_background: azure;
-  --quote_card_background: #ffaabb;
+  --card_background: #212526;
+  --quote_card_background: #e75480;
+  --icons_color: white;
+  --text_color: white;
 }
 
 [data-theme='light'] {
-  --body_background: #fff9e3;
-  --border_color: #ffe9ff;
-  --box_shadow: rgb(1 1 1/ 25%);
-  --box_shadow_hover: rgb(111 194 250/ 75%);
-  --card_background: #ccc7b5;
-  --quote_card_background: #a39f90;
+  --main_color: #3498db;
+  --body_background: #f5f5f5;
+  --box_shadow: rgba(0, 0, 0, 0.1);
+  --box_shadow_hover: rgba(0, 0, 0, 0.2);
+  --card_background: #ffffff;
+  --quote_card_background: #f0e68c;
+  --icons_color: #333;
+  --text_color: #333;
 }
