@@ -20,7 +20,10 @@ Make a request to the ZenQuotes api to fetch some quotes
 
 Display those quotes
 
-Edit, arrange, delete and share to twitter the quotes individually
+Edit quote and Dialog pop-ip.
+Arrange quote cards left to right
+Delete quote button and confirmation Dialog pop-up
+Share to twitter the quote and the website link
 
 ### Technologies used
 

@@ -7,13 +7,14 @@
   display: none;
 }
 :root {
-  --body_background: #fff9e3;
-  --box_shadow: rgb(1 1 1/ 25%);
-  --box_shadow_hover: rgb(111 194 250/ 75%);
-  --card_background: #ccc7b5;
-  --quote_card_background: #a39f90;
-  --icons_color: black;
-  --text_color: black;
+  --main_color: #3498db;
+  --body_background: #f5f5f5;
+  --box_shadow: rgba(0, 0, 0, 0.1);
+  --box_shadow_hover: rgb(23 144 98/ 50%);
+  --card_background: #ffffff;
+  --quote_card_background: rgb(78 116 126);
+  --icons_color: #333;
+  --text_color: white;
 }
 [data-theme='dark'] {
   --body_background: #141616;
@@ -33,5 +34,5 @@
   --card_background: #ffffff;
   --quote_card_background: rgb(78 116 126);
   --icons_color: #333;
-  --text_color: white;
+  --text_color: black;
 }

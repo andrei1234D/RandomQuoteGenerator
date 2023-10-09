@@ -340,12 +340,20 @@ function Home() {
                 </a>
               </Tooltip>
             </div>
-            <div className="quoteCard">
-              <div className="quote">"{item.q}"</div>
-              <div className="author">
-                <p style={{ fontFamily: "'Cedarville Cursive', 'cursive'" }}>
-                  ~ {item.a} ~
-                </p>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            >
+              <div className="quoteCard">
+                <div className="quote">"{item.q}"</div>
+                <div className="author">
+                  <p style={{ fontFamily: "'Cedarville Cursive', 'cursive'" }}>
+                    ~ {item.a} ~
+                  </p>
+                </div>
               </div>
             </div>
             <div className="modifiers">
