@@ -11,10 +11,10 @@
   --body_background: #f5f5f5;
   --box_shadow: rgba(0, 0, 0, 0.1);
   --box_shadow_hover: rgb(23 144 98/ 50%);
-  --card_background: #ffffff;
+  --card_background: #fbfbef;
   --quote_card_background: rgb(78 116 126);
   --icons_color: #333;
-  --text_color: white;
+  --text_color: black;
 }
 [data-theme='dark'] {
   --body_background: #141616;
@@ -31,7 +31,7 @@
   --body_background: #f5f5f5;
   --box_shadow: rgba(0, 0, 0, 0.1);
   --box_shadow_hover: rgb(23 144 98/ 50%);
-  --card_background: #ffffff;
+  --card_background: #fbfbef;
   --quote_card_background: rgb(78 116 126);
   --icons_color: #333;
   --text_color: black;
